@@ -18,7 +18,7 @@ jobs:
     - name: Commit overlay image
       run: |
           git config --global user.name 'TITANPLACE'
-          git config --global user.email 'sandrohc@users.noreply.github.com'
+          git config --global user.email 'qumielo@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git add .
           git commit -am "Sync overlay image"
