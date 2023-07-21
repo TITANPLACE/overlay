@@ -3,7 +3,7 @@ from PIL import Image
 
 references = [
     # (name, (x_offset, y_offset))
-    ('template.png', (101, -16))
+    ('template.png', (98, -12))
 ]
 
 canvas_width = 2000
