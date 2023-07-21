@@ -1,0 +1,21 @@
+{
+	"faction": "TITANPLACE",
+	"contact": "https://discord.gg/j9YqpyDX",
+	"templates": [
+		{
+			"name": "TITANPLACE",
+			"sources": [
+				"https://raw.githubusercontent.com/TITANPLACE/overlay/main/template.png"
+			],
+			"x": 601,
+			"y": 484
+		}
+	],
+	"whitelist": [],
+	"blacklist": [
+		{
+			"name": "TITANPLACE",
+			"url": "https://raw.githubusercontent.com/TITANPLACE/overlay/main/overlay.json"
+		}
+	]
+}
