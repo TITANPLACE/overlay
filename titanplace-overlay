@@ -1,0 +1,31 @@
+{
+  "faction": "TITANPLACE",
+  "contact": "https://discord.gg/x8h52ZnB4E",
+  "templates": [
+    {
+      "name": "TITANPLACE Art 1",
+      "sources": ["https://imgur.com/aL1OLIE.png"],
+      "x": 669,
+      "y": 490
+    }
+  ],
+  "whitelist": [
+    {
+      "name": "/r/EightySix",
+      "url": "https://rentry.co/86Place2023/raw"
+    },
+    {
+      "name": "/r/Vivy",
+      "url": "https://rentry.co/VivyPlace2023/raw"
+    },
+    {
+      "name": "/r/steinsgate/",
+      "url": "https://rentry.co/SteinsPlaceOverlay/raw"
+    },
+    {
+      "name": "/r/Corridor",
+      "url": "https://rentry.co/CorridorPlace2023/raw"
+    }
+  ],
+  "blacklist": []
+}
