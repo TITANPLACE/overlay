@@ -1,0 +1,25 @@
+name: Sync overlay
+
+on:
+  push:
+    branches: [ master, main ]
+
+jobs:
+  sync-image:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Python deps
+      run: pip install pillow requests
+    - name: Run a one-line script
+      run: python ./sync_overlay.py
+    - name: Check changes
+      run: git status
+    - name: Commit overlay image
+      run: |
+          git config --global user.name 'TITANPLACE'
+          git config --global user.email 'sandrohc@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git add .
+          git commit -am "Sync overlay image"
+          git push

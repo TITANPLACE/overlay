@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TITANPLACE</title>
+    <meta name="description" content="TITANPLACE overlay for r/place 2023">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="icon" type="image/png" href="favicon.png">-->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <style>
+        body {
+            background-color: #fff8ee;
+        }
+
+        *[data-reference] {
+            position: relative;
+        }
+
+        *[data-reference] > canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+
+        h5 {
+            font-size: 2rem;
+            margin-top: 0.7rem;
+        }
+
+        h6 {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        h5, h6, ol, ul, li {
+            margin-left: 1rem;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <h5>Overlay Instructions</h5>
+    <ol class="instructions">
+        <li>
+            Install <a href="https://tampermonkey.net/" target="_blank">Tampermonkey</a> (Chrome, Edge or Opera), or <a href="https://addons.mozilla.org/en-US/firefox/addon/violentmonkey/" target="_blank">Violentmonkey</a> (Firefox). Android users can use <a href="https://play.google.com/store/apps/details?id=com.kiwibrowser.browser">Kiwi Browser</a> and install the script as usual.
+        </li>
+        <li>
+            Go to <a href="https://greasyfork.org/en/scripts/471262-titanplace-overlay" target="_blank">this webpage</a> and install the script by pressing "Install".
+        </li>
+        <li>
+            Refresh <a href="https://www.reddit.com/r/place" target="_blank">r/place</a> for the script to take effect. If everything went right, <a href="https://cdn.discordapp.com/attachments/503415558470107137/1131617606655279206/image.png" target="_blank">you'll see squares inside of squares around those coordinates</a>. The color of the <strong>inside</strong> square is what color the outside square needs to be.
+        </li>
+    </ol>
+
+    <h6><a href="https://www.reddit.com/r/place" target="_blank">Overlay</a></h6>
+    <div data-reference="template.png" data-x="101" data-y="-16">
+        <canvas class="bg"></canvas>
+        <canvas class="fg"></canvas>
+    </div>
+
+    <script>
+        const PIXEL_WIDTH = 15;
+        const PIXEL_HEIGHT = 15;
+
+        for (const canvas of document.querySelectorAll('*[data-reference]')) {
+            drawCanvas(canvas);
+        }
+
+        setTimeout(() => {
+            // Reload every 5 minutes to fetch updates from the gh
+            location.reload();
+        }, 60000 * 5);
+
+        function getMousePos(canvas, event) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: (event.clientX - rect.left) / (rect.right - rect.left) * canvas.width,
+                y: (event.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height
+            };
+        }
+
+        function drawGrid(x_0, y_0, x_max, y_max, ctx) {
+            for (let x = x_0; x <= x_max; x += PIXEL_WIDTH) {
+                ctx.moveTo(x, y_0);
+                ctx.lineTo(x, y_max);
+                for (let y = y_0; y <= y_max; y += PIXEL_HEIGHT) {
+                    ctx.moveTo(x_0, y);
+                    ctx.lineTo(x_max, y);
+                }
+            }
+            ctx.strokeStyle = '#bbbbbb';
+            ctx.stroke();
+        }
+
+        function drawText(ctx, text, x, y) {
+            ctx.font = '4rem Sans-serif';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 8;
+            ctx.strokeText(text, x, y);
+            ctx.fillStyle = 'white';
+            ctx.fillText(text, x, y);
+        }
+
+        function drawTooltip(event, canvas, fg, offsetX, offsetY) {
+            let p = getMousePos(canvas, event);
+            let x = Math.floor(p.x / PIXEL_WIDTH);
+            let y = Math.floor(p.y / PIXEL_HEIGHT) ;
+
+            fg.clearRect(0, 0, fg.canvas.width, fg.canvas.height);
+
+            let maxX = fg.canvas.width - 140;
+            let textX = p.x > maxX ? maxX : p.x;
+
+            let minY = 45;
+            let maxY = fg.canvas.height - 50;
+            let textY = p.y < minY ? minY : (p.y > maxY ? maxY : p.y);
+
+            drawText(fg, "" + (x + offsetX), textX+25, textY-5);
+            drawText(fg, "" + (y + offsetY), textX+25, textY+40);
+
+            fg.lineWidth = 4;
+            let circle_x = x * PIXEL_WIDTH + PIXEL_WIDTH / 2;
+            let circle_y = y * PIXEL_HEIGHT + PIXEL_HEIGHT / 2;
+            fg.beginPath()
+            fg.strokeStyle = 'red';
+            fg.arc(circle_x, circle_y, PIXEL_WIDTH-6, 0, 2 * Math.PI, false);
+            fg.stroke()
+
+            fg.beginPath()
+            fg.strokeStyle = 'white';
+            fg.arc(circle_x, circle_y, PIXEL_WIDTH-4, 0, 2 * Math.PI, false);
+            fg.stroke()
+
+            fg.beginPath()
+            fg.strokeStyle = 'black';
+            fg.arc(circle_x, circle_y, PIXEL_WIDTH, 0, 2 * Math.PI, false);
+            fg.stroke()
+        }
+
+        function openReddit(event, canvas, xOffset, yOffset) {
+            let p = getMousePos(canvas, event);
+            let x = Math.floor(p.x/PIXEL_WIDTH) + xOffset;
+            let y = Math.floor(p.y/PIXEL_HEIGHT) + yOffset;
+
+            let url = "https://www.reddit.com/r/place/?cx="+x+"&cy="+y+"&px=23"
+            window.open(url, '_blank').focus();
+        }
+
+        function drawCanvas(el) {
+            const reference = el.dataset.reference;
+            const title = el.previousElementSibling.children[0];
+            const offsetX = +el.dataset.x;
+            const offsetY = +el.dataset.y;
+
+            console.log("Drawing '" + reference + "' with offset (" + offsetX + "," + offsetY + ")");
+
+            title.href = `https://www.reddit.com/r/place/?cx=${offsetX}&cy=${offsetY}&px=23`
+            title.innerText = title.innerText + ` (${offsetX}, ${offsetY})`
+
+            const background = el.getElementsByClassName('bg')[0];
+            const foreground = el.getElementsByClassName('fg')[0];
+
+            const bg = background.getContext("2d");
+            const fg = foreground.getContext("2d");
+
+            foreground.addEventListener('mousemove', e => drawTooltip(e, foreground, fg, offsetX, offsetY));
+            foreground.addEventListener('click', e => openReddit(e, foreground, offsetX, offsetY));
+
+            const img = new Image();
+            img.onload = function () {
+                let w = img.width * PIXEL_WIDTH;
+                let h = img.height * PIXEL_HEIGHT;
+
+                bg.canvas.width = w;
+                bg.canvas.height = h;
+
+                fg.canvas.width = bg.canvas.width;
+                fg.canvas.height = bg.canvas.height;
+
+                bg.imageSmoothingEnabled = false;
+                bg.drawImage(img, 0, 0, img.width, img.height, 0, 0, w, h);
+
+                drawGrid(0, 0, w, h, bg);
+
+                el.style.height = h + 'px';
+            };
+            img.src = reference;
+        }
+    </script>
+</body>
+</html>
