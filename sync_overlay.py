@@ -6,8 +6,8 @@ references = [
     ('template.png', (98, -12))
 ]
 
-canvas_width = 2000
-canvas_height = 2000
+canvas_width = 1500
+canvas_height = 1000
 canvas_scale = 3
 canvas_shift = 500
 
