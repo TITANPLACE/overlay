@@ -11,8 +11,8 @@
     {
       "name": "TITANPLACE Art 2",
       "sources": ["https://raw.githubusercontent.com/TITANPLACE/overlay/main/ereh.png"],
-      "x": 411,
-      "y": 254
+      "x": 407,
+      "y": 251
     }
   ],
   "whitelist": [
