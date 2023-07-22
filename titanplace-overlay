@@ -4,9 +4,15 @@
   "templates": [
     {
       "name": "TITANPLACE Art 1",
-      "sources": ["https://raw.githubusercontent.com/TITANPLACE/overlay/main/floch.png", "https://raw.githubusercontent.com/TITANPLACE/overlay/main/ereh.png"],
+      "sources": ["https://raw.githubusercontent.com/TITANPLACE/overlay/main/floch.png"],
       "x": 1669,
       "y": 490
+    },
+    {
+      "name": "TITANPLACE Art 2",
+      "sources": ["https://raw.githubusercontent.com/TITANPLACE/overlay/main/ereh.png"],
+      "x": -860,
+      "y": 145
     }
   ],
   "whitelist": [
