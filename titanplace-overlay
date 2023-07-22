@@ -17,10 +17,6 @@
   ],
   "whitelist": [
     {
-      "name": "/r/EightySix",
-      "url": "https://raw.githubusercontent.com/Celarye/r-place-alliance/master/templates/86Place.json"
-    },
-    {
       "name": "/r/Waitroom",
       "url": "http://ub8qbd.satdump.org/waitroom.json"
     }
