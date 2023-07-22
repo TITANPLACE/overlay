@@ -12,11 +12,11 @@
   "whitelist": [
     {
       "name": "/r/EightySix",
-      "url": "https://rentry.co/86Place2023/raw"
+      "url": "https://raw.githubusercontent.com/Celarye/r-place-alliance/master/templates/86Place.json"
     },
     {
       "name": "/r/Vivy",
-      "url": "https://rentry.co/VivyPlace2023/raw"
+      "url": "https://raw.githubusercontent.com/Celarye/r-place-alliance/master/templates/VivyPlace.json"
     },
     {
       "name": "/r/steinsgate/",
@@ -24,7 +24,11 @@
     },
     {
       "name": "/r/Corridor",
-      "url": "https://rentry.co/CorridorPlace2023/raw"
+      "url": "https://raw.githubusercontent.com/Celarye/r-place-alliance/master/templates/CorridorPlace.json"
+    },
+    {
+      "name": "/r/Corridor",
+      "url": "https://raw.githubusercontent.com/Celarye/r-place-alliance/master/templates/LainPlace.json"
     }
   ],
   "blacklist": []
