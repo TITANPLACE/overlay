@@ -17,8 +17,8 @@
     {
       "name": "TITANPLACE Art 3",
       "sources": ["https://github.com/TITANPLACE/overlay/blob/main/egg_boy.png?raw=true"],
-      "x": 2675,
-      "y": 1444
+      "x": 2725,
+      "y": 1396
     }
   ],
   "whitelist": [
