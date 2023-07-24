@@ -4,21 +4,27 @@
   "templates": [
     {
       "name": "TITANPLACE Art 1",
-      "sources": ["https://raw.githubusercontent.com/TITANPLACE/overlay/main/floch.png"],
-      "x": 1169,
-      "y": 490
+      "sources": ["https://cdn.discordapp.com/attachments/1132013033271607403/1132854155137011762/floch.png"],
+      "x": 1668,
+      "y": 990
     },
     {
       "name": "TITANPLACE Art 2",
-      "sources": ["https://raw.githubusercontent.com/TITANPLACE/overlay/main/ereh.png"],
-      "x": 406,
-      "y": 250
+      "sources": ["https://media.discordapp.net/attachments/1132953953114525798/1133062213377204274/Eren.png?width=112&height=90"],
+      "x": 911,
+      "y": 750
+    },
+    {
+      "name": "TITANPLACE Art 3",
+      "sources": ["https://github.com/TITANPLACE/overlay/blob/main/egg_boy.png?raw=true"],
+      "x": 2675,
+      "y": 1444
     }
   ],
   "whitelist": [
     {
-      "name": "/r/Waitroom",
-      "url": "http://ub8qbd.satdump.org/waitroom.json"
+      "name": "/r/EightySix",
+      "url": "https://raw.githubusercontent.com/Celarye/r-place-alliance/master/templates/86Place.json"
     }
   ],
   "blacklist": []
